@@ -14,7 +14,8 @@ var streamer = {
   stream: null,
   subscribe: function(channelName) {
     var searchTerm = base64.decode(channelName);
-    if (this.keywords.length === 0) {
+    console.log('Streamer got searchTerm', searchTerm);
+    if (this.stream === null) {
       this.startNewStream(searchTerm);
     } else {
       this.stopStream();
