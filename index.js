@@ -29,7 +29,7 @@ app.post('/webhook', function(req, res) {
   console.log('webhook request', req.body);
   var webhook = pusher.webhook(req);
   if (!webhook.isValid()) {
-    res.json({ error: 'Webhook was not valid' });
+    res.sendStatus(403);
     return;
   }
 
