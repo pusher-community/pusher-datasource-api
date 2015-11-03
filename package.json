@@ -1,0 +1,22 @@
+{
+  "name": "pusher-data-stream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jack Franklin",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "lodash": "^3.10.1",
+    "pusher": "^1.0.6",
+    "twit": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  }
+}
