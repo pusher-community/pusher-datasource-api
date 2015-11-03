@@ -14,7 +14,7 @@ var streamer = {
   stream: null,
   subscribe: function(channelName) {
     var searchTerm = base64.decode(channelName);
-    console.log('Streamer got searchTerm', searchTerm);
+    console.log('Subscribing to', searchTerm);
     if (this.stream === null) {
       this.startNewStream(searchTerm);
     } else {
@@ -65,7 +65,6 @@ var streamer = {
     this.stream.on('tweet', function(data) {
       var tweet = this.processTweet(data);
       var matchedKeyword = this.getMatchedKeywordForTweet(tweet);
-      console.log('got tweet', tweet.text, matchedKeyword);
       this.pusher.trigger(base64.encode(matchedKeyword), 'new_tweet', {
         tweet: tweet,
         searchTerm: matchedKeyword

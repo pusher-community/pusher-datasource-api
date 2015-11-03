@@ -20,7 +20,6 @@ streamer.pusher = pusher;
 
 // needed as Pusher lib requires a rawData parameter
 app.use(function(req, res, next) {
-  console.log('got request');
   var data = '';
   req.setEncoding('utf8');
   req.on('data', function(chunk) {
@@ -37,7 +36,6 @@ app.get('/ping', function(req, res) {
 });
 
 app.post('/webhook', function(req, res) {
-  console.log('webhook request', req.rawBody);
   var webhook = pusher.webhook(req);
   if (!webhook.isValid()) {
     console.log('Webhook not valid, sending 403');
