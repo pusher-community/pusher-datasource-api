@@ -21,6 +21,16 @@ streamer.pusher = pusher;
 
 app.use(bodyParser.json());
 
+// needed as Pusher lib requires a rawData parameter
+app.use(function(req, res, next) {
+  req.rawBody = '';
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    req.rawBody += chunk;
+  });
+  req.on('end', next);
+});
+
 app.get('/ping', function(req, res) {
   res.json({ pong: true });
 });
