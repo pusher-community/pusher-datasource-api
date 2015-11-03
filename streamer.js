@@ -15,12 +15,7 @@ var streamer = {
   subscribe: function(channelName) {
     var searchTerm = base64.decode(channelName);
     console.log('Subscribing to', searchTerm);
-    if (this.stream === null) {
-      this.startNewStream(searchTerm);
-    } else {
-      this.stopStream();
-      this.startNewStream(searchTerm);
-    }
+    this.startNewStream(searchTerm);
   },
   unsubscribe: function(channelName) {
     var searchTerm = base64.decode(channelName);
@@ -45,6 +40,11 @@ var streamer = {
     this.stream = null;
   },
   startNewStream: function(searchTerm) {
+    // you can only ever have one stream open at once
+    // TODO: open a second and let Twitter kill the first
+    // such that we don't miss any events
+    this.stopStream();
+
     if (searchTerm && this.keywords.indexOf(searchTerm) > -1) return;
     if (searchTerm) this.keywords.push(searchTerm);
     console.log('starting new stream', this.keywords);

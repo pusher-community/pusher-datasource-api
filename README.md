@@ -22,4 +22,17 @@ You'll need to configure your Pusher app to send [channel existence webhooks](ht
 
 The server supports searching for multiple keywords at once and will stop searching once all users vacate a given channel.
 
+To run the server you'll need to make sure you've set the following environment variables. If you place them in a `.env` file, they will be loaded automatically by Dotenv.
+
+```
+TWITTER_CONSUMER_KEY="..."
+TWITTER_CONSUMER_SECRET="..."
+TWITTER_ACCESS_TOKEN="..."
+TWITTER_ACCESS_SECRET="..."
+
+PUSHER_APP_ID="..."
+PUSHER_APP_KEY="..."
+PUSHER_APP_SECRET="..."
+```
+
 
