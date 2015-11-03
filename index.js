@@ -5,6 +5,7 @@ var http = require('http');
 var streamer = require('./streamer');
 var base64 = require('./base64');
 var bodyParser = require('body-parser');
+var Pusher = require('pusher');
 
 var app = express();
 
