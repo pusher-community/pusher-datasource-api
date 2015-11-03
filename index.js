@@ -6,7 +6,6 @@ var express = require('express');
 var http = require('http');
 var streamer = require('./streamer');
 var base64 = require('./base64');
-var bodyParser = require('body-parser');
 var Pusher = require('pusher');
 
 var app = express();
@@ -19,16 +18,16 @@ var pusher = new Pusher({
 
 streamer.pusher = pusher;
 
-app.use(bodyParser.json());
-
 // needed as Pusher lib requires a rawData parameter
 app.use(function(req, res, next) {
-  req.rawBody = '';
+  console.log('got request');
+  var data = '';
   req.setEncoding('utf8');
   req.on('data', function(chunk) {
-    req.rawBody += chunk;
+    data += chunk;
   });
   req.on('end', function() {
+    req.rawBody = data;
     next();
   });
 });
@@ -46,7 +45,7 @@ app.post('/webhook', function(req, res) {
     return;
   }
 
-  var events = req.body.events;
+  var events = webhook.getEvents();
   events.forEach(function(event) {
     if (event.name === 'channel_occupied') {
       streamer.subscribe(event.channel);

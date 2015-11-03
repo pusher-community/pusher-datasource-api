@@ -24,6 +24,7 @@ var streamer = {
   },
   unsubscribe: function(channelName) {
     var searchTerm = base64.decode(channelName);
+    console.log('Unsubcribing from', searchTerm);
     if (this.keywords.indexOf(searchTerm) === -1) return;
 
     if (this.keywords.length === 1) {
@@ -37,7 +38,7 @@ var streamer = {
     });
 
     this.stopStream();
-    this.startNewStream();
+    if (this.keywords.length > 0) this.startNewStream();
   },
   stopStream: function() {
     this.stream && this.stream.stop();
