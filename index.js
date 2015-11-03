@@ -28,7 +28,9 @@ app.use(function(req, res, next) {
   req.on('data', function(chunk) {
     req.rawBody += chunk;
   });
-  req.on('end', next);
+  req.on('end', function() {
+    next();
+  });
 });
 
 app.get('/ping', function(req, res) {
@@ -36,9 +38,10 @@ app.get('/ping', function(req, res) {
 });
 
 app.post('/webhook', function(req, res) {
-  console.log('webhook request', req.body);
+  console.log('webhook request', req.rawBody);
   var webhook = pusher.webhook(req);
   if (!webhook.isValid()) {
+    console.log('Webhook not valid, sending 403');
     res.sendStatus(403);
     return;
   }
