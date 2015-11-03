@@ -20,6 +20,11 @@ var pusher = new Pusher({
 streamer.pusher = pusher;
 
 app.use(bodyParser.json());
+
+app.get('/ping', function(req, res) {
+  res.json({ pong: true });
+});
+
 app.post('/webhook', function(req, res) {
   console.log('webhook request', req.body);
   var webhook = pusher.webhook(req);

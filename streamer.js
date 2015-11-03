@@ -50,8 +50,10 @@ var streamer = {
     this.bindStreamEvents();
   },
   getMatchedKeywordForTweet: function(tweet) {
+    if (this.keywords.length === 1) return this.keywords[0];
+
     return this.keywords.filter(function(keyword) {
-      return tweet.text.indexOf(keyword) > -1;
+      return tweet.text.toLowerCase().indexOf(keyword.toLowerCase()) > -1;
     })[0];
   },
   processTweet: function(tweet) {
@@ -61,6 +63,7 @@ var streamer = {
     this.stream.on('tweet', function(data) {
       var tweet = this.processTweet(data);
       var matchedKeyword = this.getMatchedKeywordForTweet(tweet);
+      console.log('got tweet', tweet.text, matchedKeyword);
       this.pusher.trigger(base64.encode(matchedKeyword), 'new_tweet', {
         tweet: tweet,
         searchTerm: matchedKeyword
