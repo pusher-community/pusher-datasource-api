@@ -65,6 +65,12 @@ var streamer = {
     this.stream.on('tweet', function(data) {
       var tweet = this.processTweet(data);
       var matchedKeyword = this.getMatchedKeywordForTweet(tweet);
+
+      if (!matchedKeyword) {
+        console.log('Tweet', tweet.text, 'didn\'t match any keywords from', this.keywords, 'skipping');
+        return;
+      }
+
       this.pusher.trigger(base64.encode(matchedKeyword), 'new_tweet', {
         tweet: tweet,
         searchTerm: matchedKeyword
