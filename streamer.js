@@ -63,6 +63,7 @@ var streamer = {
   },
   bindStreamEvents: function() {
     this.stream.on('tweet', function(data) {
+      console.log('stream got tweet');
       var tweet = this.processTweet(data);
       var matchedKeyword = this.getMatchedKeywordForTweet(tweet);
 
